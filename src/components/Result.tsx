@@ -3,6 +3,7 @@ import React from 'react';
 import { useAppSelector } from '../store';
 import {
   selectError,
+  selectIsTyping,
   selectLoading,
   selectMeaning,
 } from '../store/features/search/searchSlice';
@@ -13,6 +14,7 @@ import NotFound from './NotFound';
 import Info from './Info';
 
 const Result = () => {
+  const isTyping = useAppSelector(selectIsTyping);
   const meaning = useAppSelector(selectMeaning);
   const isLoading = useAppSelector(selectLoading);
   const error = useAppSelector(selectError);
@@ -26,32 +28,30 @@ const Result = () => {
 
   return (
     <Container>
-      {error ? (
-        <NotFound />
-      ) : meaning?.length > 0 ? (
-        <>
-          <Word>{normalizedMeaning?.word}</Word>
-          <Phonetic show={!!normalizedMeaning?.hasPhonetic}>
-            <p>{normalizedMeaning?.phonetic.text}</p>
-            <img src={megaPhone} alt="mega-phone" onClick={handleSpeakWord} />
-          </Phonetic>
-          {normalizedMeaning?.meanings?.map(
-            (meaning: Meaning, index: number) => (
-              <Meanings key={`${meaning.partOfSpeech}-${index}`}>
-                <div>
-                  <p>{meaning.partOfSpeech}</p>
-                  <p>{meaning.definitions[0].definition}</p>
-                </div>
-                {meaning.definitions[0].example && (
-                  <p>{meaning.definitions[0].example}</p>
-                )}
-              </Meanings>
-            )
-          )}
-        </>
-      ) : (
-        !isLoading && <Info />
-      )}
+      <NotFound show={!!error} />
+      <MeaningContainer show={meaning?.length > 0 && error === null}>
+        <Word>{normalizedMeaning?.word}</Word>
+        <Phonetic show={!!normalizedMeaning?.hasPhonetic}>
+          <p>{normalizedMeaning?.phonetic.text}</p>
+          <img src={megaPhone} alt="mega-phone" onClick={handleSpeakWord} />
+        </Phonetic>
+        {normalizedMeaning?.meanings?.map((meaning: Meaning, index: number) => (
+          <Meanings key={`${meaning.partOfSpeech}-${index}`}>
+            <div>
+              <p>{meaning.partOfSpeech}</p>
+              <p>{meaning.definitions[0].definition}</p>
+            </div>
+            {meaning.definitions[0].example && (
+              <p>{meaning.definitions[0].example}</p>
+            )}
+          </Meanings>
+        ))}
+      </MeaningContainer>
+      <Info
+        show={
+          !isLoading && !isTyping && error === null && meaning?.length === 0
+        }
+      />
     </Container>
   );
 };
@@ -64,7 +64,14 @@ const Container = styled.div({
   borderRadius: '5px',
   boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
   border: '1px solid rgba(255, 255, 255, 0.3)',
+  overflow: 'auto',
 });
+
+const MeaningContainer = styled.div<{ show: boolean }>((props) => ({
+  display: props.show ? 'block' : 'none',
+  opacity: props.show ? 1 : 0,
+  transition: 'opacity 0.9s linear',
+}));
 
 const Word = styled.div({
   padding: '20px',
@@ -100,7 +107,6 @@ const Phonetic = styled.div<{ show: boolean }>((props) => ({
 const Meanings = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  fontSize: '14px',
   color: '#fffdfa',
 
   '> p': {
@@ -115,7 +121,6 @@ const Meanings = styled.div({
 
     '> p': {
       padding: '0 20px',
-      fontSize: '15px',
     },
 
     '> p:nth-of-type(1)': {

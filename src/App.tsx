@@ -7,13 +7,14 @@ import { selectLoading } from './store/features/search/searchSlice';
 import Spinner from './components/Spinner';
 
 const App = () => {
+  const isTyping = useAppSelector(selectLoading);
   const isLoading = useAppSelector(selectLoading);
 
   return (
     <Container>
       <h1>What does it mean?</h1>
       <Input />
-      {isLoading && <Spinner />}
+      {(isTyping || isLoading) && <Spinner />}
       <Result />
     </Container>
   );

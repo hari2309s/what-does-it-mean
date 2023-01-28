@@ -8,12 +8,14 @@ import { IMeaning, getMeaning as getMeaningApi } from '../../../api/api';
 import { RootState } from '../../store';
 
 interface SearchState {
+  isTyping: boolean;
   meaning: IMeaning[];
   loading: boolean;
   error: Error | SerializedError | null;
 }
 
 const initialState: SearchState = {
+  isTyping: false,
   meaning: [],
   loading: false,
   error: null,
@@ -35,7 +37,11 @@ export const searchSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
+    setTyping: (state, action: PayloadAction<boolean>) => {
+      state.isTyping = action.payload;
+    },
     clearMeaning: (state, action) => {
+      state.isTyping = false;
       state.meaning = [];
       state.error = null;
     },
@@ -47,10 +53,13 @@ export const searchSlice = createSlice({
         (state, action: PayloadAction<IMeaning[]>) => {
           state.meaning = action.payload;
           state.loading = false;
+          state.error = null;
         }
       )
       .addCase(getMeaning.pending, (state, action) => {
         state.loading = true;
+        state.isTyping = false;
+        state.error = null;
       })
       .addCase(getMeaning.rejected, (state, action) => {
         state.error = action.error;
@@ -60,10 +69,11 @@ export const searchSlice = createSlice({
   },
 });
 
+export const selectIsTyping = (state: RootState) => state.search.isTyping;
 export const selectMeaning = (state: RootState) => state.search.meaning;
 export const selectLoading = (state: RootState) => state.search.loading;
 export const selectError = (state: RootState) => state.search.error;
 
-export const { clearMeaning } = searchSlice.actions;
+export const { setTyping, clearMeaning } = searchSlice.actions;
 
 export default searchSlice.reducer;

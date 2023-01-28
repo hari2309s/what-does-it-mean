@@ -1,16 +1,26 @@
 import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch } from '../store';
-import { clearMeaning, getMeaning } from '../store/features/search/searchSlice';
+import { useAppDispatch, useAppSelector } from '../store';
+import {
+  clearMeaning,
+  getMeaning,
+  selectLoading,
+  setTyping,
+} from '../store/features/search/searchSlice';
 
 const Input = () => {
+  const isLoading = useAppSelector(selectLoading);
   const dispatch = useAppDispatch();
+
   const [word, setWord] = useState<string>('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setTyping(true));
+
     setWord(e.target.value);
 
     if (e.target.value === '') {
+      dispatch(setTyping(false));
       dispatch(clearMeaning({}));
     }
   };
@@ -31,11 +41,12 @@ const Input = () => {
       placeholder="Type something..."
       value={word}
       onChange={handleInputChange}
+      isLoading={isLoading}
     />
   );
 };
 
-const StyledInput = styled.input({
+const StyledInput = styled.input<{ isLoading: boolean }>((props) => ({
   width: '500px',
   height: '75px',
   borderRadius: '5px',
@@ -45,7 +56,7 @@ const StyledInput = styled.input({
   fontWeight: 300,
   textAlign: 'center',
   color: '#5E548E',
-  marginBottom: '30px',
-});
+  marginBottom: !props.isLoading ? '35px' : '30px',
+}));
 
 export default Input;
