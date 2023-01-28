@@ -29,7 +29,7 @@ const Container = styled.div({
 
   '> h1': {
     color: '#231942',
-    fontWeight: 500,
+    fontWeight: 400,
   },
 });
 
