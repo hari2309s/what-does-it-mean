@@ -16,7 +16,7 @@ const StyledSpan = styled.span`
     content: '';
     width: 96px;
     height: 4.8px;
-    background: #5e548e;
+    background: #262d33;
     position: absolute;
     top: 0;
     left: 0;
