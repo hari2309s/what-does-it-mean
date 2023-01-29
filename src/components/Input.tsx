@@ -50,14 +50,15 @@ const Input = () => {
 const StyledInput = styled.input<{ isLoading: boolean }>((props) => ({
   width: '500px',
   height: '75px',
-  borderRadius: '5px',
-  border: '1px solid #9F86C0',
   outline: 'none',
   fontSize: '30px',
   fontWeight: 300,
   textAlign: 'center',
-  color: '#5E548E',
+  color: '#39434c',
   marginBottom: !props.isLoading ? '35px' : '30px',
+  background: 'rgba(248, 252, 255, 0.8)',
+  borderRadius: '5px',
+  border: '1px solid rgba(248, 252, 255, 0.3)',
 }));
 
 export default Input;

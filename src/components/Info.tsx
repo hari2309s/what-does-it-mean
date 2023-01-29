@@ -13,20 +13,21 @@ const Info = () => {
 
 const Container = styled.div({
   display: 'flex',
+  flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
   height: '100%',
 
   '> img': {
     marginTop: '5px',
-    width: '25px',
-    height: '25px',
+    width: '35px',
+    height: '35px',
   },
 
   '> p': {
     paddingLeft: '10px',
     fontSize: '20px',
-    color: '#fffdfa',
+    color: '#f8fcff',
   },
 });
 

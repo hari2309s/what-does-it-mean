@@ -28,8 +28,8 @@ const Container = styled.div({
   padding: '10px',
 
   '> h1': {
-    color: '#231942',
-    fontWeight: 400,
+    color: '#39434c',
+    fontWeight: 600,
   },
 });
 

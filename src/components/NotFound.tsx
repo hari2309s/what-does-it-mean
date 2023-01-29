@@ -27,7 +27,7 @@ const Container = styled.div({
 
   '> p': {
     width: '50%',
-    color: '#fffdfa',
+    color: '#f8fcff',
   },
 });
 

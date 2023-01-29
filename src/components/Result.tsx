@@ -30,10 +30,7 @@ const Result = () => {
     <Container data-testid="result">
       {error && <NotFound />}
       {meaning?.length > 0 && (
-        <MeaningContainer
-          data-testid="meaning"
-          show={meaning?.length > 0 && error === null}
-        >
+        <div data-testid="meaning">
           <Word>{normalizedMeaning?.word}</Word>
           <Phonetic show={!!normalizedMeaning?.hasPhonetic}>
             <p>{normalizedMeaning?.phonetic.text}</p>
@@ -55,7 +52,7 @@ const Result = () => {
               </Meanings>
             )
           )}
-        </MeaningContainer>
+        </div>
       )}
       {!isTyping && !isLoading && meaning?.length === 0 && !error && <Info />}
     </Container>
@@ -66,23 +63,17 @@ const Container = styled.div({
   width: '500px',
   height: '60vh',
   margin: '30px 10px 40px',
-  background: 'rgba(159, 134, 192, 0.4)',
+  background: 'rgba(95, 112, 127, 0.4)',
   borderRadius: '5px',
   boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-  border: '1px solid rgba(255, 255, 255, 0.3)',
+  border: '1px solid rgba(204, 233, 252, 0.3)',
   overflow: 'auto',
 });
-
-const MeaningContainer = styled.div<{ show: boolean }>((props) => ({
-  display: props.show ? 'block' : 'none',
-  opacity: props.show ? 1 : 0,
-  transition: 'opacity 0.9s linear',
-}));
 
 const Word = styled.div({
   padding: '20px',
   fontSize: '30px',
-  color: '#fef9ef',
+  color: '#f8fcff',
   fontWeight: 500,
 });
 
@@ -90,7 +81,7 @@ const Phonetic = styled.div<{ show: boolean }>((props) => ({
   display: props.show ? 'flex' : 'none',
   alignItems: 'center',
   gap: '10px',
-  color: '#231942',
+  color: '#39434c',
   fontSize: '14px',
   paddingBottom: '30px',
 
@@ -111,14 +102,15 @@ const Phonetic = styled.div<{ show: boolean }>((props) => ({
 }));
 
 const Meanings = styled.div({
+  opacity: 1,
   display: 'flex',
   flexDirection: 'column',
-  color: '#fffdfa',
+  color: '#f8fcff',
 
   '> p': {
     padding: '0 20px',
     fontStyle: 'italic',
-    color: '#231942',
+    color: '#39434c',
   },
 
   '> div': {
@@ -134,6 +126,7 @@ const Meanings = styled.div({
       fontWeight: 500,
       lineHeight: '16px',
       fontStyle: 'italic',
+      color: '#39434c',
     },
   },
 });
