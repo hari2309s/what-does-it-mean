@@ -21,7 +21,7 @@ export interface ILicense {
 
 export interface Meaning {
   partOfSpeech: string;
-  definitions: IDefinition[];
+  definitions: Partial<IDefinition>[];
   synonyms: string[];
   antonyms: string[];
 }
@@ -29,7 +29,7 @@ export interface Meaning {
 export interface IMeaning {
   word: string;
   phonetic: string;
-  phonetics: IPhonetic[];
+  phonetics: Partial<IPhonetic>[];
   meanings: Meaning[];
   license: ILicense;
   sourceUrls: string[];

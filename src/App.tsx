@@ -4,7 +4,7 @@ import Result from './components/Result';
 import styled from '@emotion/styled';
 import { useAppSelector } from './store';
 import { selectLoading } from './store/features/search/searchSlice';
-import Spinner from './components/Spinner';
+import Loader from './components/Loader';
 
 const App = () => {
   const isTyping = useAppSelector(selectLoading);
@@ -14,7 +14,7 @@ const App = () => {
     <Container>
       <h1>What does it mean?</h1>
       <Input />
-      {(isTyping || isLoading) && <Spinner />}
+      {(isTyping || isLoading) && <Loader />}
       <Result />
     </Container>
   );

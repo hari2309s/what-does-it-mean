@@ -2,26 +2,20 @@ import styled from '@emotion/styled';
 import React from 'react';
 import typing from '../assets/typing.png';
 
-interface InfoProps {
-  show: boolean;
-}
-
-const Info = ({ show }: InfoProps) => {
+const Info = () => {
   return (
-    <Container show={show}>
+    <Container data-testid="info">
       <img src={typing} alt="typing" />
       <p>Type something...</p>
     </Container>
   );
 };
 
-const Container = styled.div<InfoProps>((props) => ({
-  display: props.show ? 'flex' : 'none',
+const Container = styled.div({
+  display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   height: '100%',
-  opacity: props.show ? 1 : 0,
-  transition: 'opacity 0.6s linear',
 
   '> img': {
     marginTop: '5px',
@@ -34,6 +28,6 @@ const Container = styled.div<InfoProps>((props) => ({
     fontSize: '20px',
     color: '#fffdfa',
   },
-}));
+});
 
 export default Info;

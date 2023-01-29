@@ -27,31 +27,37 @@ const Result = () => {
   };
 
   return (
-    <Container>
-      <NotFound show={!!error} />
-      <MeaningContainer show={meaning?.length > 0 && error === null}>
-        <Word>{normalizedMeaning?.word}</Word>
-        <Phonetic show={!!normalizedMeaning?.hasPhonetic}>
-          <p>{normalizedMeaning?.phonetic.text}</p>
-          <img src={megaPhone} alt="mega-phone" onClick={handleSpeakWord} />
-        </Phonetic>
-        {normalizedMeaning?.meanings?.map((meaning: Meaning, index: number) => (
-          <Meanings key={`${meaning.partOfSpeech}-${index}`}>
-            <div>
-              <p>{meaning.partOfSpeech}</p>
-              <p>{meaning.definitions[0].definition}</p>
-            </div>
-            {meaning.definitions[0].example && (
-              <p>{meaning.definitions[0].example}</p>
-            )}
-          </Meanings>
-        ))}
-      </MeaningContainer>
-      <Info
-        show={
-          !isLoading && !isTyping && error === null && meaning?.length === 0
-        }
-      />
+    <Container data-testid="result">
+      {error && <NotFound />}
+      {meaning?.length > 0 && (
+        <MeaningContainer
+          data-testid="meaning"
+          show={meaning?.length > 0 && error === null}
+        >
+          <Word>{normalizedMeaning?.word}</Word>
+          <Phonetic show={!!normalizedMeaning?.hasPhonetic}>
+            <p>{normalizedMeaning?.phonetic.text}</p>
+            <img src={megaPhone} alt="mega-phone" onClick={handleSpeakWord} />
+          </Phonetic>
+          {normalizedMeaning?.meanings?.map(
+            (meaning: Meaning, index: number) => (
+              <Meanings
+                key={`${meaning.partOfSpeech}-${index}`}
+                datat-testid="meanings"
+              >
+                <div>
+                  <p>{meaning.partOfSpeech}</p>
+                  <p>{meaning.definitions[0].definition}</p>
+                </div>
+                {meaning.definitions[0].example && (
+                  <p>{meaning.definitions[0].example}</p>
+                )}
+              </Meanings>
+            )
+          )}
+        </MeaningContainer>
+      )}
+      {!isTyping && !isLoading && meaning?.length === 0 && !error && <Info />}
     </Container>
   );
 };

@@ -37,6 +37,7 @@ const Input = () => {
 
   return (
     <StyledInput
+      data-testid="search-input"
       type="text"
       placeholder="Type something..."
       value={word}

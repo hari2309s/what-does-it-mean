@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import React from 'react';
 
-const Spinner = () => {
-  return <StyledSpan />;
+const Loader = () => {
+  return <StyledSpan data-testid="loader" />;
 };
 
 const StyledSpan = styled.span`
@@ -36,4 +36,4 @@ const StyledSpan = styled.span`
   }
 `;
 
-export default Spinner;
+export default Loader;
