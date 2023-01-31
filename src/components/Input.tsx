@@ -21,13 +21,13 @@ const Input = () => {
 
     if (e.target.value === '') {
       dispatch(setTyping(false));
-      dispatch(clearMeaning({}));
+      dispatch(clearMeaning());
     }
   };
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      if (word) {
+      if (word.trim() !== '') {
         const words: string[] = word.split(' ');
         dispatch(getMeaning(words[words.length - 1]));
       }

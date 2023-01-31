@@ -40,7 +40,7 @@ export const searchSlice = createSlice({
     setTyping: (state, action: PayloadAction<boolean>) => {
       state.isTyping = action.payload;
     },
-    clearMeaning: (state, action) => {
+    clearMeaning: (state) => {
       state.isTyping = false;
       state.meaning = [];
       state.error = null;
@@ -56,9 +56,10 @@ export const searchSlice = createSlice({
           state.error = null;
         }
       )
-      .addCase(getMeaning.pending, (state, action) => {
+      .addCase(getMeaning.pending, (state) => {
         state.loading = true;
         state.isTyping = false;
+        state.meaning = [];
         state.error = null;
       })
       .addCase(getMeaning.rejected, (state, action) => {
