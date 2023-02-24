@@ -1,6 +1,4 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# A Simple Dictionary application.
 
 ## Available Scripts
 
@@ -18,6 +16,10 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run test:coverage`
+
+Runs the unit tests with coverage.
 
 ### `npm run build`
 
@@ -39,8 +41,14 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+### `npm run cypress:open`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Opens Cypress dashboard and you can run the tests from there.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### `npm run lint`
+
+To run the linter on the codebase.
+
+### `npm run prettify`
+
+To format the codebase based on prettier config.
