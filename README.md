@@ -1,5 +1,7 @@
 # A Simple Dictionary application.
 
+A simple dictionary application that uses https://dictionaryapi.dev underneath to find meanings.
+
 ## Available Scripts
 
 In the project directory, you can run:

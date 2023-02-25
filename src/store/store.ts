@@ -3,7 +3,7 @@ import {
   configureStore,
   PreloadedState,
 } from '@reduxjs/toolkit';
-import searchReducer from './features/search/searchSlice';
+import searchReducer from '../store/features/search/searchSlice';
 
 const rootReducer = combineReducers({
   search: searchReducer,
