@@ -59,6 +59,18 @@ const StyledInput = styled.input<{ isLoading: boolean }>((props) => ({
   background: 'rgba(248, 252, 255, 0.8)',
   borderRadius: '5px',
   border: '1px solid rgba(248, 252, 255, 0.3)',
+
+  '@media (max-width: 600px)': {
+    width: '350px',
+    height: '65px',
+    fontSize: '25px',
+  },
+
+  '@media (max-width: 400px)': {
+    width: '300px',
+    height: '55px',
+    fontSize: '20px',
+  },
 }));
 
 export default Input;

@@ -68,6 +68,14 @@ const Container = styled.div({
   boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
   border: '1px solid rgba(204, 233, 252, 0.3)',
   overflow: 'auto',
+
+  '@media (max-width: 600px)': {
+    width: '350px',
+  },
+
+  '@media (max-width: 400px)': {
+    width: '300px',
+  },
 });
 
 const Word = styled.div({
@@ -127,6 +135,18 @@ const Meanings = styled.div({
       lineHeight: '16px',
       fontStyle: 'italic',
       color: '#39434c',
+    },
+  },
+
+  '@media (max-width: 600px)': {
+    '> div > p': {
+      padding: '0 18px',
+    },
+  },
+
+  '@media (max-width: 400px)': {
+    '> div > p': {
+      padding: '0 15px',
     },
   },
 });

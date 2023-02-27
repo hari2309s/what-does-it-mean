@@ -31,6 +31,18 @@ const Container = styled.div({
     color: '#39434c',
     fontWeight: 600,
   },
+
+  '@media (max-width: 600px)': {
+    '> h1': {
+      fontWeight: 400,
+    },
+  },
+
+  '@media (max-width: 400px)': {
+    '> h1': {
+      fontWeight: 300,
+    },
+  },
 });
 
 export default App;

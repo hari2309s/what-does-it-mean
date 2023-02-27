@@ -34,6 +34,14 @@ const StyledSpan = styled.span`
       transform: translateX(-99%);
     }
   }
+
+  @media (max-width: 600px) {
+    width: 350px;
+  }
+
+  @media (max-width: 400px) {
+    width: 300px;
+  }
 `;
 
 export default Loader;
