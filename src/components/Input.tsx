@@ -4,12 +4,15 @@ import { useAppDispatch, useAppSelector } from '../store';
 import {
   clearMeaning,
   getMeaning,
+  selectIsTyping,
   selectLoading,
   setTyping,
 } from '../store/features/search/searchSlice';
 
 const Input = () => {
   const isLoading = useAppSelector(selectLoading);
+  const isTyping = useAppSelector(selectIsTyping);
+
   const dispatch = useAppDispatch();
 
   const [word, setWord] = useState<string>('');
@@ -42,7 +45,7 @@ const Input = () => {
       placeholder="Type something..."
       value={word}
       onChange={handleInputChange}
-      isLoading={isLoading}
+      isLoading={isLoading || isTyping}
     />
   );
 };

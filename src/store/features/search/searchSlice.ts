@@ -10,6 +10,8 @@ import { RootState } from '../../store';
 interface SearchState {
   isTyping: boolean;
   meaning: IMeaning[];
+  history: IMeaning[];
+  currentWordIndex: number;
   loading: boolean;
   error: Error | SerializedError | null;
 }
@@ -17,6 +19,8 @@ interface SearchState {
 const initialState: SearchState = {
   isTyping: false,
   meaning: [],
+  history: [],
+  currentWordIndex: -1,
   loading: false,
   error: null,
 };
@@ -40,6 +44,9 @@ export const searchSlice = createSlice({
     setTyping: (state, action: PayloadAction<boolean>) => {
       state.isTyping = action.payload;
     },
+    setCurrentWordIndex: (state, action: PayloadAction<number>) => {
+      state.currentWordIndex = action.payload;
+    },
     clearMeaning: (state) => {
       state.isTyping = false;
       state.meaning = [];
@@ -52,6 +59,7 @@ export const searchSlice = createSlice({
         getMeaning.fulfilled,
         (state, action: PayloadAction<IMeaning[]>) => {
           state.meaning = action.payload;
+          state.history.concat(action.payload[0]);
           state.loading = false;
           state.error = null;
         }
@@ -71,10 +79,14 @@ export const searchSlice = createSlice({
 });
 
 export const selectIsTyping = (state: RootState) => state.search.isTyping;
+export const selectCurrentWordIndex = (state: RootState) =>
+  state.search.currentWordIndex;
 export const selectMeaning = (state: RootState) => state.search.meaning;
+export const selectHistory = (state: RootState) => state.search.history;
 export const selectLoading = (state: RootState) => state.search.loading;
 export const selectError = (state: RootState) => state.search.error;
 
-export const { setTyping, clearMeaning } = searchSlice.actions;
+export const { setTyping, setCurrentWordIndex, clearMeaning } =
+  searchSlice.actions;
 
 export default searchSlice.reducer;
