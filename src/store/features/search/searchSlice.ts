@@ -59,7 +59,8 @@ export const searchSlice = createSlice({
         getMeaning.fulfilled,
         (state, action: PayloadAction<IMeaning[]>) => {
           state.meaning = action.payload;
-          state.history.concat(action.payload[0]);
+          state.history = [...state.history, action.payload[0]];
+          state.currentWordIndex = state.history.length - 1;
           state.loading = false;
           state.error = null;
         }

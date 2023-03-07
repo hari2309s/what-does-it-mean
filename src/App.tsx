@@ -40,7 +40,11 @@ const App = () => {
           src={arrowLeft}
           alt="previous-word"
           onClick={handlePreviousClick}
-          disabled={currentWordIndex === 0 || currentWordIndex === -1}
+          disabled={
+            history.length === 1 ||
+            currentWordIndex === 0 ||
+            currentWordIndex === -1
+          }
         />
         <Input />
         <Icon
@@ -48,7 +52,9 @@ const App = () => {
           alt="next-word"
           onClick={handleNextClick}
           disabled={
-            currentWordIndex === -1 || currentWordIndex >= history.length
+            history.length === 1 ||
+            currentWordIndex === -1 ||
+            currentWordIndex === history.length - 1
           }
         />
       </div>
