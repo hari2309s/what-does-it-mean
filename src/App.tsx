@@ -4,11 +4,11 @@ import Result from './components/Result';
 import styled from '@emotion/styled';
 import { useAppDispatch, useAppSelector } from './store';
 import {
-  selectCurrentWordIndex,
+  selectCurrentIndexInHistory,
   selectHistory,
   selectIsTyping,
   selectLoading,
-  setCurrentWordIndex,
+  setCurrentIndexInHistory,
 } from './store/features/search/searchSlice';
 import Loader from './components/Loader';
 import arrowLeft from './assets/arrow-left.png';
@@ -17,19 +17,21 @@ import arrowRight from './assets/arrow-right.png';
 const App = () => {
   const isTyping = useAppSelector(selectIsTyping);
   const isLoading = useAppSelector(selectLoading);
-  const currentWordIndex = useAppSelector(selectCurrentWordIndex);
+  const currentIndexInHistory = useAppSelector(selectCurrentIndexInHistory);
   const history = useAppSelector(selectHistory);
 
   const dispatch = useAppDispatch();
 
   const handlePreviousClick = () => {
-    if (currentWordIndex > 0) {
-      dispatch(setCurrentWordIndex(currentWordIndex - 1));
+    if (currentIndexInHistory > 0) {
+      dispatch(setCurrentIndexInHistory(currentIndexInHistory - 1));
+    } else {
+      dispatch(setCurrentIndexInHistory(0));
     }
   };
 
   const handleNextClick = () => {
-    dispatch(setCurrentWordIndex(currentWordIndex + 1));
+    dispatch(setCurrentIndexInHistory(currentIndexInHistory + 1));
   };
 
   return (
@@ -40,11 +42,7 @@ const App = () => {
           src={arrowLeft}
           alt="previous-word"
           onClick={handlePreviousClick}
-          disabled={
-            history.length === 1 ||
-            currentWordIndex === 0 ||
-            currentWordIndex === -1
-          }
+          disabled={currentIndexInHistory === -1}
         />
         <Input />
         <Icon
@@ -53,8 +51,8 @@ const App = () => {
           onClick={handleNextClick}
           disabled={
             history.length === 1 ||
-            currentWordIndex === -1 ||
-            currentWordIndex === history.length - 1
+            currentIndexInHistory === -1 ||
+            currentIndexInHistory === history.length - 1
           }
         />
       </div>

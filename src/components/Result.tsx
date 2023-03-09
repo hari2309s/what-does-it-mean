@@ -2,7 +2,9 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { useAppSelector } from '../store';
 import {
+  selectCurrentIndexInHistory,
   selectError,
+  selectHistory,
   selectIsTyping,
   selectLoading,
   selectMeaning,
@@ -16,10 +18,14 @@ import Info from './Info';
 const Result = () => {
   const isTyping = useAppSelector(selectIsTyping);
   const meaning = useAppSelector(selectMeaning);
+  const currentIndexInHistory = useAppSelector(selectCurrentIndexInHistory);
+  const history = useAppSelector(selectHistory);
   const isLoading = useAppSelector(selectLoading);
   const error = useAppSelector(selectError);
 
-  const normalizedMeaning = useNormalizeMeaning(meaning?.[0]);
+  const normalizedMeaning = useNormalizeMeaning(
+    meaning?.[0] ?? history[currentIndexInHistory]
+  );
 
   const handleSpeakWord = () => {
     const audio = new Audio(normalizedMeaning?.phonetic.audio);
@@ -29,7 +35,7 @@ const Result = () => {
   return (
     <Container data-testid="result">
       {error && <NotFound />}
-      {meaning?.length > 0 && (
+      {(meaning?.length > 0 || (meaning?.length == 0 && normalizedMeaning)) && (
         <div data-testid="meaning">
           <Word>{normalizedMeaning?.word}</Word>
           <Phonetic show={!!normalizedMeaning?.hasPhonetic}>

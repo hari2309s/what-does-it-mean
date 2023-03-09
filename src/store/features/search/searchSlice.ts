@@ -11,7 +11,7 @@ interface SearchState {
   isTyping: boolean;
   meaning: IMeaning[];
   history: IMeaning[];
-  currentWordIndex: number;
+  currentIndexInHistory: number;
   loading: boolean;
   error: Error | SerializedError | null;
 }
@@ -20,7 +20,7 @@ const initialState: SearchState = {
   isTyping: false,
   meaning: [],
   history: [],
-  currentWordIndex: -1,
+  currentIndexInHistory: -1,
   loading: false,
   error: null,
 };
@@ -44,12 +44,13 @@ export const searchSlice = createSlice({
     setTyping: (state, action: PayloadAction<boolean>) => {
       state.isTyping = action.payload;
     },
-    setCurrentWordIndex: (state, action: PayloadAction<number>) => {
-      state.currentWordIndex = action.payload;
+    setCurrentIndexInHistory: (state, action: PayloadAction<number>) => {
+      state.currentIndexInHistory = action.payload;
     },
     clearMeaning: (state) => {
       state.isTyping = false;
       state.meaning = [];
+      state.currentIndexInHistory = state.history.length - 1;
       state.error = null;
     },
   },
@@ -60,7 +61,6 @@ export const searchSlice = createSlice({
         (state, action: PayloadAction<IMeaning[]>) => {
           state.meaning = action.payload;
           state.history = [...state.history, action.payload[0]];
-          state.currentWordIndex = state.history.length - 1;
           state.loading = false;
           state.error = null;
         }
@@ -80,14 +80,14 @@ export const searchSlice = createSlice({
 });
 
 export const selectIsTyping = (state: RootState) => state.search.isTyping;
-export const selectCurrentWordIndex = (state: RootState) =>
-  state.search.currentWordIndex;
+export const selectCurrentIndexInHistory = (state: RootState) =>
+  state.search.currentIndexInHistory;
 export const selectMeaning = (state: RootState) => state.search.meaning;
 export const selectHistory = (state: RootState) => state.search.history;
 export const selectLoading = (state: RootState) => state.search.loading;
 export const selectError = (state: RootState) => state.search.error;
 
-export const { setTyping, setCurrentWordIndex, clearMeaning } =
+export const { setTyping, setCurrentIndexInHistory, clearMeaning } =
   searchSlice.actions;
 
 export default searchSlice.reducer;
